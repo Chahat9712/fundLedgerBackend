@@ -41,7 +41,7 @@ public class FundController {
     }
 
     @GetMapping
-    public List<Fund> getAllFundsBasedOnUserId(String userId){
+    public List<Fund> getAllFundsBasedOnUserId(Long userId){
         return fundService.getAllFundsByUserId(userId);
     }
 
@@ -58,7 +58,7 @@ public class FundController {
     }
 
     @GetMapping
-    public Pair<List<Fund>, List<Transaction>> getFundsAndParticipantsForUser(String userId){
+    public Pair<List<Fund>, List<Transaction>> getFundsAndParticipantsForUser(Long userId){
         return fundService.getFundsTransactionsForUser(userId);
     }
 }

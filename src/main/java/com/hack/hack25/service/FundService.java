@@ -56,7 +56,7 @@ public class FundService {
         return fundRepository.findByFundName(fundName);
     }
 
-    public List<Fund> getAllFundsByUserId(String userId) {
+    public List<Fund> getAllFundsByUserId(Long userId) {
 
         Participant participant = participantRepository.findByUserId(userId);
 
@@ -92,7 +92,7 @@ public class FundService {
         return "Fund created successfully";
     }
 
-    public Pair<List<Fund>, List<Transaction>> getFundsTransactionsForUser(String userId) {
+    public Pair<List<Fund>, List<Transaction>> getFundsTransactionsForUser(Long userId) {
 
         Participant participant = participantRepository.findByUserId(userId);
 
