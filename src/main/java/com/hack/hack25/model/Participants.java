@@ -26,4 +26,12 @@ public class Participants extends User{
         this.participantBalance = participantBalance;
     }
 
+    public void setParticipantName(String name){
+        super.setUserName(name);
+    }
+
+    public String getParticipantName(){
+        return super.getUserName();
+    }
+
 }
