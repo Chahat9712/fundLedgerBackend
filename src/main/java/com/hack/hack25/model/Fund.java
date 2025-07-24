@@ -1,5 +1,7 @@
 package com.hack.hack25.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +26,8 @@ public class Fund {
     private double fundValue;
     private double loanValue;
     @ManyToOne
-    @JoinColumn(name = "admin_id", nullable = false)
+    @JoinColumn(name = "admin_id", nullable = true)
+    @JsonBackReference
     private Admin admin;
     @ManyToMany
     @JoinTable(
@@ -32,8 +35,11 @@ public class Fund {
             joinColumns = @JoinColumn(name = "fund_id"),
             inverseJoinColumns = @JoinColumn(name = "participant_id")
     )
+    @JsonManagedReference(value = "fund-participant")
     private List<Participant> participants = new ArrayList<>();
+
     @OneToMany(mappedBy = "fund", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "fund-transaction")
     private List<Transaction> transactions = new ArrayList<>();
 }
 

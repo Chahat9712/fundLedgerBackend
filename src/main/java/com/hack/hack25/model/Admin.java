@@ -1,5 +1,6 @@
 package com.hack.hack25.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -19,6 +20,7 @@ import java.util.List;
 public class Admin extends User {
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Fund> funds = new ArrayList<>();
 }
 

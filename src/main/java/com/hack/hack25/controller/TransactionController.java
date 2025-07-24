@@ -3,10 +3,7 @@ package com.hack.hack25.controller;
 import com.hack.hack25.dto.TransactionRequestDTO;
 import com.hack.hack25.service.TransactionService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/transactions")
@@ -19,7 +16,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @GetMapping("/addTransaction")
+    @PostMapping(value = "/addTransaction")
     public ResponseEntity<String> addTransaction(@RequestBody TransactionRequestDTO transactionRequestDTO)
     {
         transactionService.addTransaction(transactionRequestDTO);

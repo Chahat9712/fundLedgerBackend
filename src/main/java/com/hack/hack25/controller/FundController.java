@@ -1,42 +1,39 @@
 package com.hack.hack25.controller;
 
-import com.hack.hack25.model.Analytics;
-import com.hack.hack25.model.Fund;
-import com.hack.hack25.model.Transaction;
+import com.hack.hack25.dto.FundResponseDTO;
+import com.hack.hack25.model.*;
 import com.hack.hack25.service.FundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/funds")
 public class FundController {
 
     @Autowired
     private FundService fundService;
 
     @PostMapping("/addUserToFund")
-    public void addUserToExistingFund(Long userId, String fundName)
+    public String addUserToExistingFund(@RequestBody AddUserModel model)
     {
-        fundService.addUserToFund(fundName, userId);
+        return fundService.addUserToFund(model.getFname(), model.getId());
     }
 
     @GetMapping("/getAllFunds")
-    public void getAllFunds(){
-        fundService.getAllFunds();
+    public List<String> getAllFunds(){
+        return fundService.getAllFunds();
     }
 
     @PostMapping("/user")
-    public Long registerUser(String name, double fundValue){
-        return fundService.registerUser(name, fundValue);
+    public Long registerUser(@RequestBody UserModel userModel){
+        return fundService.registerUser(userModel.getName(), userModel.getFundValue());
     }
 
     @GetMapping("/getFundByName/{fundName}")
-    public Fund getFundByName(String fundName)
+    public FundResponseDTO getFundByName(@PathVariable String fundName)
     {
         return fundService.getFundByName(fundName);
     }
@@ -48,14 +45,9 @@ public class FundController {
 
     /*List fund details --- participants, hight contributors, fund value, loan amount*/
 
-    @GetMapping("/getAnalytics/{fundName}")
-    public Analytics getData(@PathVariable String fundName){
-        return fundService.getAnalysis(fundName);
-    }
-
     @PostMapping("/addFund")
-    public String addNewFund(String fundName){
-        return fundService.addNewFund(fundName);
+    public String addNewFund(@RequestBody AddUserModel addUserModel){
+        return fundService.addNewFund(addUserModel.getFname());
     }
 
     @GetMapping("/getFundsTransactions/{userId}")

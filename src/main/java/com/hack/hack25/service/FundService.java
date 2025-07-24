@@ -1,9 +1,8 @@
 package com.hack.hack25.service;
 
-import com.hack.hack25.model.Analytics;
-import com.hack.hack25.model.Fund;
-import com.hack.hack25.model.Participant;
-import com.hack.hack25.model.Transaction;
+import com.hack.hack25.dto.FundResponseDTO;
+import com.hack.hack25.model.*;
+import com.hack.hack25.repository.AdminRepository;
 import com.hack.hack25.repository.FundRepository;
 import com.hack.hack25.repository.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,10 @@ public class FundService {
     @Autowired
     private ParticipantRepository participantRepository;
 
-    public void addUserToFund(String fundName, Long userId) {
+    @Autowired
+    private AdminRepository adminRepository;
+
+    public String addUserToFund(String fundName, Long userId) {
 
         Fund f = fundRepository.findByFundName(fundName);
         List<Participant> ps = f.getParticipants();
@@ -37,10 +39,19 @@ public class FundService {
         }
 
         fundRepository.save(f);
+
+        return "User added to the input fund";
     }
 
-    public void getAllFunds() {
-        fundRepository.findAll();
+    public List<String> getAllFunds() {
+        List<Fund> funds = fundRepository.findAll();
+        List<String> ls = new ArrayList<>();
+        for(Fund f : funds)
+        {
+            ls.add(f.getFundName());
+        }
+
+        return ls;
     }
 
     public Long registerUser(String name, double fundValue) {
@@ -52,8 +63,25 @@ public class FundService {
         return p.getUserId();
     }
 
-    public Fund getFundByName(String fundName) {
-        return fundRepository.findByFundName(fundName);
+    public FundResponseDTO getFundByName(String fundName) {
+        Fund fund = fundRepository.findByFundName(fundName);
+        List<Participant> participants = fund.getParticipants();
+        List<String> ls = new ArrayList<>();
+        FundResponseDTO fundResponseDTO = new FundResponseDTO();
+        fundResponseDTO.setFundName(fund.getFundName());
+        for (Participant participant : fund.getParticipants())
+        {
+            ls.add(participant.getUserName());
+        }
+        fundResponseDTO.setParticipants(ls);
+        Participant x = participants.stream()
+                .max(Comparator.comparingDouble(Participant::getBalance)).orElse(null);
+
+        fundResponseDTO.setHighestContributor(x.getUserName());
+        fundResponseDTO.setFundValue(fund.getFundValue());
+        fundResponseDTO.setLoanValue(fund.getLoanValue());
+
+        return fundResponseDTO;
     }
 
     public List<Fund> getAllFundsByUserId(Long userId) {
@@ -63,29 +91,14 @@ public class FundService {
         return participant.getParticipantFunds();
     }
 
-    public Analytics getAnalysis(String fundId) {
-
-        Fund f = fundRepository.findByFundName(fundId);
-
-        List<Participant> participants = f.getParticipants();
-
-        Analytics a = new Analytics();
-        Participant x = participants.stream()
-                .max(Comparator.comparingDouble(Participant::getBalance)).orElse(null);
-
-        a.setHighestContributor(x.getUserName());
-        a.setFundBal(f.getFundValue());
-        a.setLoanedAmt(f.getLoanValue());
-
-        return a;
-
-    }
-
     public String addNewFund(String fundName) {
 
         Fund f = new Fund();
         f.setFundName(fundName);
         f.setFundValue(500.00);
+
+        Admin a = adminRepository.findByUserId(1L);
+        f.setAdmin(a);
 
         fundRepository.save(f);
 

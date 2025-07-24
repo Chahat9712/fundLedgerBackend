@@ -1,5 +1,6 @@
 package com.hack.hack25.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,9 +22,11 @@ public class Transaction {
     private double transactionAmount;
     private Date transactionDate;
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "participant_id", nullable = false)
+    @JsonBackReference(value = "participant-transaction")
     private Participant participant;
     @ManyToOne
     @JoinColumn(name = "fund_id", nullable = false)
+    @JsonBackReference(value = "fund-transaction")
     private Fund fund;
 }
