@@ -1,9 +1,9 @@
 package com.hack.hack25.repository;
 
-import com.hack.hack25.model.Participants;
+import com.hack.hack25.model.Participant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ParticipantRepository extends JpaRepository<Participants, String> {
+public interface ParticipantRepository extends JpaRepository<Participant, String> {
 
-    Participants findByUserId(String userId);
+    Participant findByUserId(String userId);
 }

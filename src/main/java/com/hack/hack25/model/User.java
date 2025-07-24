@@ -1,44 +1,28 @@
 package com.hack.hack25.model;
 
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-public class User {
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public abstract class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userId;
     private String userName;
-    private Long loanedAmount;
-    private Long amountDeposited;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public Long getLoanedAmount() {
-        return loanedAmount;
-    }
-
-    public void setLoanedAmount(Long loanedAmount) {
-        this.loanedAmount = loanedAmount;
-    }
-
-    public Long getAmountDeposited() {
-        return amountDeposited;
-    }
-
-    public void setAmountDeposited(Long amountDeposited) {
-        this.amountDeposited = amountDeposited;
-    }
+    private String userRole;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Transaction> transactions = new ArrayList<>();
 }
+
