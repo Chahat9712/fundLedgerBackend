@@ -22,7 +22,5 @@ public abstract class User {
     private String userId;
     private String userName;
     private String userRole;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Transaction> transactions = new ArrayList<>();
 }
 

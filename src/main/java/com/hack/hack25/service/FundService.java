@@ -20,7 +20,7 @@ public class FundService {
     @Autowired
     private ParticipantRepository participantRepository;
 
-    public void addUserToFund(String fundName, String userId) {
+    public void addUserToFund(String fundName, Long userId) {
 
         Fund f = fundRepository.findByFundName(fundName);
         List<Participant> ps = f.getParticipants();

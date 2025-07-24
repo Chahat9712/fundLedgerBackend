@@ -1,7 +1,9 @@
 package com.hack.hack25.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +24,7 @@ public class Participant extends User {
 
     @ManyToMany(mappedBy = "participants")
     private List<Fund> participantFunds = new ArrayList<>();
+
+    @OneToMany(mappedBy = "participants", cascade = CascadeType.ALL)
+    private List<Transaction> transactions = new ArrayList<>();
 }

@@ -14,7 +14,7 @@ public class FundController {
     private FundService fundService;
 
     @PostMapping
-    public void addUserToExistingFund(String userId, String fundName)
+    public void addUserToExistingFund(Long userId, String fundName)
     {
         fundService.addUserToFund(fundName, userId);
     }
