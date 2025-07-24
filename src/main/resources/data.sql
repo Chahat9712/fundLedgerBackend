@@ -1,36 +1,36 @@
 -- Insert 1 Admin
-INSERT INTO user (user_id, user_name, user_role) VALUES (1, 'Admin A', 'ADMIN');
+INSERT INTO "user" (user_id, user_name, user_role) VALUES (1, 'Admin A', 'ADMIN');
 INSERT INTO admin (user_id) VALUES (1);
 
 -- Insert 10 Participants
-INSERT INTO user (user_id, user_name, user_role) VALUES (2, 'Alice', 'PARTICIPANT');
+INSERT INTO "user" (user_id, user_name, user_role) VALUES (2, 'Alice', 'PARTICIPANT');
 INSERT INTO participant (user_id, balance, loaned_amount) VALUES (2, 10000, 2000);
 
-INSERT INTO user (user_id, user_name, user_role) VALUES (3, 'Bob', 'PARTICIPANT');
+INSERT INTO "user" (user_id, user_name, user_role) VALUES (3, 'Bob', 'PARTICIPANT');
 INSERT INTO participant (user_id, balance, loaned_amount) VALUES (3, 9500, 1000);
 
-INSERT INTO user (user_id, user_name, user_role) VALUES (4, 'Charlie', 'PARTICIPANT');
+INSERT INTO "user" (user_id, user_name, user_role) VALUES (4, 'Charlie', 'PARTICIPANT');
 INSERT INTO participant (user_id, balance, loaned_amount) VALUES (4, 8000, 1500);
 
-INSERT INTO user (user_id, user_name, user_role) VALUES (5, 'Daisy', 'PARTICIPANT');
+INSERT INTO "user" (user_id, user_name, user_role) VALUES (5, 'Daisy', 'PARTICIPANT');
 INSERT INTO participant (user_id, balance, loaned_amount) VALUES (5, 7200, 1200);
 
-INSERT INTO user (user_id, user_name, user_role) VALUES (6, 'Ethan', 'PARTICIPANT');
+INSERT INTO "user" (user_id, user_name, user_role) VALUES (6, 'Ethan', 'PARTICIPANT');
 INSERT INTO participant (user_id, balance, loaned_amount) VALUES (6, 6700, 700);
 
-INSERT INTO user (user_id, user_name, user_role) VALUES (7, 'Fiona', 'PARTICIPANT');
+INSERT INTO "user" (user_id, user_name, user_role) VALUES (7, 'Fiona', 'PARTICIPANT');
 INSERT INTO participant (user_id, balance, loaned_amount) VALUES (7, 5600, 600);
 
-INSERT INTO user (user_id, user_name, user_role) VALUES (8, 'George', 'PARTICIPANT');
+INSERT INTO "user" (user_id, user_name, user_role) VALUES (8, 'George', 'PARTICIPANT');
 INSERT INTO participant (user_id, balance, loaned_amount) VALUES (8, 8800, 0);
 
-INSERT INTO user (user_id, user_name, user_role) VALUES (9, 'Hannah', 'PARTICIPANT');
+INSERT INTO "user" (user_id, user_name, user_role) VALUES (9, 'Hannah', 'PARTICIPANT');
 INSERT INTO participant (user_id, balance, loaned_amount) VALUES (9, 9300, 500);
 
-INSERT INTO user (user_id, user_name, user_role) VALUES (10, 'Ian', 'PARTICIPANT');
+INSERT INTO "user" (user_id, user_name, user_role) VALUES (10, 'Ian', 'PARTICIPANT');
 INSERT INTO participant (user_id, balance, loaned_amount) VALUES (10, 6100, 1100);
 
-INSERT INTO user (user_id, user_name, user_role) VALUES (11, 'Jenny', 'PARTICIPANT');
+INSERT INTO "user" (user_id, user_name, user_role) VALUES (11, 'Jenny', 'PARTICIPANT');
 INSERT INTO participant (user_id, balance, loaned_amount) VALUES (11, 7900, 950);
 
 -- Insert 3 Funds (created by Admin ID 1)
