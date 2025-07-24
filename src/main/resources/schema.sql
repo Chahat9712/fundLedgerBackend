@@ -1,5 +1,5 @@
 -- Base User Table
-CREATE TABLE user (
+CREATE TABLE "user" (
     user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_name VARCHAR(255),
     user_role VARCHAR(50)
@@ -8,7 +8,7 @@ CREATE TABLE user (
 -- Admin Table (inherits from User)
 CREATE TABLE admin (
     user_id BIGINT PRIMARY KEY,
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
+    FOREIGN KEY (user_id) REFERENCES "user"(user_id)
 );
 
 -- Participant Table (inherits from User)
@@ -16,7 +16,7 @@ CREATE TABLE participant (
     user_id BIGINT PRIMARY KEY,
     balance DOUBLE,
     loaned_amount DOUBLE,
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
+    FOREIGN KEY (user_id) REFERENCES "user"(user_id)
 );
 
 -- Fund Table
