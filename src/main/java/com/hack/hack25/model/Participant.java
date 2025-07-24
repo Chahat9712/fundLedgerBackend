@@ -1,7 +1,9 @@
 package com.hack.hack25.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,27 +25,6 @@ public class Participant extends User {
     @ManyToMany(mappedBy = "participants")
     private List<Fund> participantFunds = new ArrayList<>();
 
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public double getLoanedAmount() {
-        return loanedAmount;
-    }
-
-    public void setLoanedAmount(double loanedAmount) {
-        this.loanedAmount = loanedAmount;
-    }
-
-    public List<Fund> getParticipantFunds() {
-        return participantFunds;
-    }
-
-    public void setParticipantFunds(List<Fund> participantFunds) {
-        this.participantFunds = participantFunds;
-    }
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
+    private List<Transaction> transactions = new ArrayList<>();
 }

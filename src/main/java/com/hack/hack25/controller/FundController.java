@@ -19,7 +19,7 @@ public class FundController {
     private FundService fundService;
 
     @PostMapping
-    public void addUserToExistingFund(String userId, String fundName)
+    public void addUserToExistingFund(Long userId, String fundName)
     {
         fundService.addUserToFund(fundName, userId);
     }
@@ -30,7 +30,7 @@ public class FundController {
     }
 
     @PostMapping
-    public String registerUser(String name, double fundValue){
+    public Long registerUser(String name, double fundValue){
         return fundService.registerUser(name, fundValue);
     }
 
@@ -41,7 +41,7 @@ public class FundController {
     }
 
     @GetMapping
-    public List<Fund> getAllFundsBasedOnUserId(String userId){
+    public List<Fund> getAllFundsBasedOnUserId(Long userId){
         return fundService.getAllFundsByUserId(userId);
     }
 
@@ -58,7 +58,7 @@ public class FundController {
     }
 
     @GetMapping
-    public Pair<List<Fund>, List<Transaction>> getFundsAndParticipantsForUser(String userId){
+    public Pair<List<Fund>, List<Transaction>> getFundsAndParticipantsForUser(Long userId){
         return fundService.getFundsTransactionsForUser(userId);
     }
 }
