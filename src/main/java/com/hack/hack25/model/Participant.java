@@ -22,4 +22,28 @@ public class Participant extends User {
 
     @ManyToMany(mappedBy = "participants")
     private List<Fund> participantFunds = new ArrayList<>();
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public double getLoanedAmount() {
+        return loanedAmount;
+    }
+
+    public void setLoanedAmount(double loanedAmount) {
+        this.loanedAmount = loanedAmount;
+    }
+
+    public List<Fund> getParticipantFunds() {
+        return participantFunds;
+    }
+
+    public void setParticipantFunds(List<Fund> participantFunds) {
+        this.participantFunds = participantFunds;
+    }
 }
