@@ -11,4 +11,5 @@ public interface FundRepository extends JpaRepository<Fund, String> {
 
     List<Fund> findByFundType(String fundType);
     Fund findByFundName(String fundName);
+    Fund findByFundId(Long fundId);
 }

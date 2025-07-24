@@ -23,7 +23,7 @@ public class FundService {
     @Autowired
     private ParticipantRepository participantRepository;
 
-    public void addUserToFund(String fundName, String userId) {
+    public void addUserToFund(String fundName, Long userId) {
 
         Fund f = fundRepository.findByFundName(fundName);
         List<Participant> ps = f.getParticipants();
@@ -43,7 +43,7 @@ public class FundService {
         fundRepository.findAll();
     }
 
-    public String registerUser(String name, double fundValue) {
+    public Long registerUser(String name, double fundValue) {
         Participant p = new Participant();
         p.setUserName(name);
         p.setBalance(fundValue);
@@ -56,7 +56,7 @@ public class FundService {
         return fundRepository.findByFundName(fundName);
     }
 
-    public List<Fund> getAllFundsByUserId(String userId) {
+    public List<Fund> getAllFundsByUserId(Long userId) {
 
         Participant participant = participantRepository.findByUserId(userId);
 
@@ -92,7 +92,7 @@ public class FundService {
         return "Fund created successfully";
     }
 
-    public Pair<List<Fund>, List<Transaction>> getFundsTransactionsForUser(String userId) {
+    public Pair<List<Fund>, List<Transaction>> getFundsTransactionsForUser(Long userId) {
 
         Participant participant = participantRepository.findByUserId(userId);
 
