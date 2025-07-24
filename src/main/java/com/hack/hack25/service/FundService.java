@@ -1,7 +1,7 @@
 package com.hack.hack25.service;
 
 import com.hack.hack25.model.Fund;
-import com.hack.hack25.model.Participants;
+import com.hack.hack25.model.Participant;
 import com.hack.hack25.repository.FundRepository;
 import com.hack.hack25.repository.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class FundService {
     public void addUserToFund(String fundName, String userId) {
 
         Fund f = fundRepository.findByFundName(fundName);
-        List<Participants> ps = f.getParticipants();
+        List<Participant> ps = f.getParticipants();
 
         try{
             ps.add(participantRepository.findByUserId(userId));
@@ -41,13 +41,12 @@ public class FundService {
     }
 
     public String registerUser(String name, double fundValue) {
-        Participants p = new Participants();
-        p.setParticipantId(UUID.randomUUID().toString());
-        p.setParticipantName(name);
-        p.setParticipantBalance(fundValue);
+        Participant p = new Participant();
+        p.setUserName(name);
+        p.setBalance(fundValue);
         participantRepository.save(p);
 
-        return p.getParticipantId();
+        return p.getUserId();
     }
 
     public Fund getFundByName(String fundName) {

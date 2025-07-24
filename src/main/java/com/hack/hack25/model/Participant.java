@@ -1,8 +1,7 @@
 package com.hack.hack25.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +15,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Admin extends User {
+public class Participant extends User {
 
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<Fund> funds = new ArrayList<>();
+    private double balance;
+    private double loanedAmount;
+
+    @ManyToMany(mappedBy = "participants")
+    private List<Fund> participantFunds = new ArrayList<>();
 }
-
