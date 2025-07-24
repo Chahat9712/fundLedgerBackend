@@ -40,7 +40,7 @@ public class FundService {
         fundRepository.findAll();
     }
 
-    public String registerUser(String name, double fundValue) {
+    public Long registerUser(String name, double fundValue) {
         Participant p = new Participant();
         p.setUserName(name);
         p.setBalance(fundValue);

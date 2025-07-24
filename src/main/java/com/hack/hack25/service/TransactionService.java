@@ -34,7 +34,7 @@ public class TransactionService {
         Transaction transaction = new Transaction();
         transaction.setTransactionAmount(transactionRequestDTO.getTransactionAmount());
         transaction.setFund(fund);
-        transaction.setParticipants(participant);
+        transaction.setParticipant(participant);
         transaction.setTransactionDate(new Date());
         transactionRepository.save(transaction);
     }

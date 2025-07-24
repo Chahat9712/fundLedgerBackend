@@ -25,6 +25,6 @@ public class Participant extends User {
     @ManyToMany(mappedBy = "participants")
     private List<Fund> participantFunds = new ArrayList<>();
 
-    @OneToMany(mappedBy = "participants", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
 }

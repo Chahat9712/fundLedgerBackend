@@ -25,7 +25,7 @@ public class FundController {
     }
 
     @PostMapping
-    public String registerUser(String name, double fundValue){
+    public Long registerUser(String name, double fundValue){
         return fundService.registerUser(name, fundValue);
     }
 

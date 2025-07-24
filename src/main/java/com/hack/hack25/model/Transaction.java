@@ -22,7 +22,7 @@ public class Transaction {
     private Date transactionDate;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Participant participants;
+    private Participant participant;
     @ManyToOne
     @JoinColumn(name = "fund_id", nullable = false)
     private Fund fund;
