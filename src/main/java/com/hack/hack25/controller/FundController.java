@@ -7,6 +7,7 @@ import com.hack.hack25.service.FundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,47 +19,47 @@ public class FundController {
     @Autowired
     private FundService fundService;
 
-    @PostMapping
+    @PostMapping("/addUserToFund")
     public void addUserToExistingFund(Long userId, String fundName)
     {
         fundService.addUserToFund(fundName, userId);
     }
 
-    @GetMapping
+    @GetMapping("/getAllFunds")
     public void getAllFunds(){
         fundService.getAllFunds();
     }
 
-    @PostMapping
+    @PostMapping("/user")
     public Long registerUser(String name, double fundValue){
         return fundService.registerUser(name, fundValue);
     }
 
-    @GetMapping
+    @GetMapping("/getFundByName/{fundName}")
     public Fund getFundByName(String fundName)
     {
         return fundService.getFundByName(fundName);
     }
 
-    @GetMapping
-    public List<Fund> getAllFundsBasedOnUserId(Long userId){
+    @GetMapping("/getUserFunds/{userId}")
+    public List<Fund> getAllFundsBasedOnUserId(@PathVariable Long userId){
         return fundService.getAllFundsByUserId(userId);
     }
 
     /*List fund details --- participants, hight contributors, fund value, loan amount*/
 
-    @GetMapping
-    public Analytics getData(String fundName){
+    @GetMapping("/getAnalytics/{fundName}")
+    public Analytics getData(@PathVariable String fundName){
         return fundService.getAnalysis(fundName);
     }
 
-    @PostMapping
+    @PostMapping("/addFund")
     public String addNewFund(String fundName){
         return fundService.addNewFund(fundName);
     }
 
-    @GetMapping
-    public Pair<List<Fund>, List<Transaction>> getFundsAndParticipantsForUser(Long userId){
+    @GetMapping("/getFundsTransactions/{userId}")
+    public Pair<List<Fund>, List<Transaction>> getFundsAndParticipantsForUser(@PathVariable Long userId){
         return fundService.getFundsTransactionsForUser(userId);
     }
 }
