@@ -28,8 +28,8 @@ public class FundController {
     }
 
     @PostMapping("/user")
-    public Long registerUser(@RequestBody UserModel userModel){
-        return fundService.registerUser(userModel.getName(), userModel.getFundValue());
+    public Participant registerUser(@RequestBody UserModel userModel){
+        return fundService.registerUser(userModel.getName(), 5000.00);
     }
 
     @GetMapping("/getFundByName/{fundName}")

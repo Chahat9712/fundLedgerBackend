@@ -1,6 +1,6 @@
 -- Base User Table
 CREATE TABLE user_table (
-    user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(255),
     user_role VARCHAR(50)
 );

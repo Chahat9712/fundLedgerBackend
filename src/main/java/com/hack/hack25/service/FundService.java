@@ -54,13 +54,13 @@ public class FundService {
         return ls;
     }
 
-    public Long registerUser(String name, double fundValue) {
+    public Participant registerUser(String name, double fundValue) {
         Participant p = new Participant();
         p.setUserName(name);
         p.setBalance(fundValue);
-        participantRepository.save(p);
+        Participant saved = participantRepository.save(p);
 
-        return p.getUserId();
+        return saved;
     }
 
     public FundResponseDTO getFundByName(String fundName) {
