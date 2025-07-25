@@ -28,8 +28,8 @@ public class TransactionService {
 
     public void addTransaction(TransactionRequestDTO transactionRequestDTO)
     {
-        Participant participant = participantRepository.findByUserId(transactionRequestDTO.getUserId());
-        Fund fund = fundRepository.findByFundId(transactionRequestDTO.getFundId());
+        Participant participant = participantRepository.findByUserName(transactionRequestDTO.getUserName());
+        Fund fund = fundRepository.findByFundName(transactionRequestDTO.getFundName());
 
         Transaction transaction = new Transaction();
         transaction.setTransactionAmount(transactionRequestDTO.getTransactionAmount());

@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TransactionRequestDTO {
     private double transactionAmount;
-    private Long userId;
-    private Long fundId;
+    private String userName;
+    private String fundName;
 }
 

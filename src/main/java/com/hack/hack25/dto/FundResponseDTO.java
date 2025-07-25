@@ -5,16 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FundResponseDTO {
+public class  FundResponseDTO {
 
     private String fundName;
-    private List<String> participants;
+    private List<String> participants = new ArrayList<>();
     private String highestContributor;
     private double fundValue;
     private double loanValue;

@@ -1,6 +1,7 @@
 package com.hack.hack25.service;
 
 import com.hack.hack25.dto.FundResponseDTO;
+import com.hack.hack25.exception.CommonException;
 import com.hack.hack25.model.*;
 import com.hack.hack25.repository.AdminRepository;
 import com.hack.hack25.repository.FundRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,13 +27,15 @@ public class FundService {
     @Autowired
     private AdminRepository adminRepository;
 
-    public String addUserToFund(String fundName, Long userId) {
+    public String addUserToFund(String fundName, String userId) {
 
         Fund f = fundRepository.findByFundName(fundName);
         List<Participant> ps = f.getParticipants();
 
         try{
-            ps.add(participantRepository.findByUserId(userId));
+
+            ps.add(participantRepository.findByUserName(userId));
+
         }
         catch (Exception e){
             System.out.println("User not found. Please register first.");
@@ -65,21 +69,23 @@ public class FundService {
 
     public FundResponseDTO getFundByName(String fundName) {
         Fund fund = fundRepository.findByFundName(fundName);
+        if(fund == null) {
+            throw new CommonException("No fund found with name: "+fundName);
+        }
         List<Participant> participants = fund.getParticipants();
-        List<String> ls = new ArrayList<>();
         FundResponseDTO fundResponseDTO = new FundResponseDTO();
         fundResponseDTO.setFundName(fund.getFundName());
-        for (Participant participant : fund.getParticipants())
-        {
-            ls.add(participant.getUserName());
-        }
-        fundResponseDTO.setParticipants(ls);
-        Participant x = participants.stream()
-                .max(Comparator.comparingDouble(Participant::getBalance)).orElse(null);
-
-        fundResponseDTO.setHighestContributor(x.getUserName());
         fundResponseDTO.setFundValue(fund.getFundValue());
         fundResponseDTO.setLoanValue(fund.getLoanValue());
+        if(!CollectionUtils.isEmpty(participants)) {
+            List<String> ls = new ArrayList<>();
+            fund.getParticipants().stream().forEach(participant -> ls.add(participant.getUserName()));
+            fundResponseDTO.setParticipants(ls);
+            Participant x = participants.stream()
+                    .max(Comparator.comparingDouble(Participant::getBalance)).orElse(null);
+
+            fundResponseDTO.setHighestContributor(x.getUserName());
+        }
 
         return fundResponseDTO;
     }
@@ -93,11 +99,9 @@ public class FundService {
 
     public String addNewFund(String fundName) {
 
-        Fund f = new Fund();
-        f.setFundName(fundName);
-        f.setFundValue(500.00);
+        Fund f = Fund.builder().fundName(fundName).fundValue(500.00).build();
 
-        Admin a = adminRepository.findByUserId(1L);
+        Admin a = adminRepository.findByUserId(1001L);
         f.setAdmin(a);
 
         fundRepository.save(f);
@@ -105,9 +109,9 @@ public class FundService {
         return "Fund created successfully";
     }
 
-    public Pair<List<Fund>, List<Transaction>> getFundsTransactionsForUser(Long userId) {
+    public Pair<List<Fund>, List<Transaction>> getFundsTransactionsForUser(String userId) {
 
-        Participant participant = participantRepository.findByUserId(userId);
+        Participant participant = participantRepository.findByUserName(userId);
 
         // Initialize empty lists for funds and transactions
         List<Fund> funds = new ArrayList<>();

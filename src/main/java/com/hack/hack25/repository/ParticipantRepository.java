@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface ParticipantRepository extends JpaRepository<Participant, Long> {
 
     Participant findByUserId(Long userId);
+
+    Participant findByUserName(String userId);
 }

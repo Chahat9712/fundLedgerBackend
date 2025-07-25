@@ -19,7 +19,7 @@ public class FundController {
     @PostMapping("/addUserToFund")
     public String addUserToExistingFund(@RequestBody AddUserModel model)
     {
-        return fundService.addUserToFund(model.getFname(), model.getId());
+        return fundService.addUserToFund(model.getFname(), model.getName());
     }
 
     @GetMapping("/getAllFunds")
@@ -50,8 +50,8 @@ public class FundController {
         return fundService.addNewFund(addUserModel.getFname());
     }
 
-    @GetMapping("/getFundsTransactions/{userId}")
-    public Pair<List<Fund>, List<Transaction>> getFundsAndParticipantsForUser(@PathVariable Long userId){
-        return fundService.getFundsTransactionsForUser(userId);
+    @GetMapping("/getFundsTransactions/{userName}")
+    public Pair<List<Fund>, List<Transaction>> getFundsAndParticipantsForUser(@PathVariable String userName){
+        return fundService.getFundsTransactionsForUser(userName);
     }
 }
